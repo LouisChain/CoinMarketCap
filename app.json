@@ -1,0 +1,10 @@
+{
+  "name": "CoinMarketCap",
+  "displayName": "Coin Market Cap",
+  "expo": {
+    "slug": "CoinMarketCap",
+    "name": "CoinMarketCap",
+    "sdkVersion": "28.0.0",
+    "entryPoint": "/Users/luu/ReacNativeProjects/CoinMarketCap/.vscode/exponentIndex.js"
+  }
+}
