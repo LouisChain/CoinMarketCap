@@ -17,15 +17,12 @@ export default StyleSheet.create({
         color: '#333333',
         marginBottom: 5,
     },
-    smalltext: {
-        color: 'gray',
-        fontSize: 14
+    buttonContainer: {
+      margin: 20
     },
-    mediumText: {
-        color: 'gray',
-        fontSize: 16
-    },
-    bold: {
-        fontWeight: 'bold'
-    },
+    alternativeLayoutButtonContainer: {
+      margin: 20,
+      flexDirection: 'row',
+      justifyContent: 'space-between'
+    }
 });
