@@ -8,7 +8,10 @@ import React, { Component } from "react";
 import { Platform, Text, View, Button, Alert } from "react-native";
 import styles from "../styles/styles";
 import LearnTouchable from "../components/learns/learn_touchable";
-import IScrolledDownAndWhatHappenedNextShockedMe from "../components/learns/scroll_view";
+import LearnScrollView from "../components/learns/scroll_view";
+import LearnFlatList from "../components/learns/flat_list";
+import LearnSectionListBasics from "../components/learns/section_list";
+import LearnNetwork from "../components/learns/network";
 
 const instructions = Platform.select({
   ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
@@ -36,8 +39,10 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <LearnTouchable handlePress1={this.handlePress1} handlePress2={this.handlePress2}/>
-        <IScrolledDownAndWhatHappenedNextShockedMe/>
+        {/* <LearnTouchable handlePress1={this.handlePress1} handlePress2={this.handlePress2}/>
+        <LearnScrollView/> */}
+        {/* <LearnFlatList/> */}
+        <LearnNetwork/>
       </View>
     );
   }
