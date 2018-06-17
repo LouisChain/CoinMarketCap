@@ -20,7 +20,14 @@ export default class LearnTouchable extends Component {
   render() {
     return (
       <View>
-        <TouchableHighlight onPress={this.props.handlePress1} underlayColor="#000">
+        <View style={styles.alternativeLayoutButtonContainer}>
+          <Button onPress={this._onPressButton} title="This looks great!" />
+          <Button onPress={this._onPressButton} title="OK!" color="#841584" />
+        </View>
+        <TouchableHighlight
+          onPress={this.props.handlePress1}
+          underlayColor="#000"
+        >
           <View style={styles.button}>
             <Text style={styles.buttonText}>TouchableHighlight</Text>
           </View>
