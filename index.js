@@ -1,4 +1,4 @@
 import { AppRegistry } from 'react-native';
-import App from './ui/app';
+import App from './screens/main/app';
 
 AppRegistry.registerComponent('CoinMarketCap', () => App);

@@ -17,12 +17,4 @@ export default StyleSheet.create({
         color: '#333333',
         marginBottom: 5,
     },
-    buttonContainer: {
-      margin: 20
-    },
-    alternativeLayoutButtonContainer: {
-      margin: 20,
-      flexDirection: 'row',
-      justifyContent: 'space-between'
-    }
 });

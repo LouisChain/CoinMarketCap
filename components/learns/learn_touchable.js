@@ -1,16 +1,15 @@
 import React, { Component } from "react";
 import {
   Platform,
+  StyleSheet,
   Text,
   View,
   Button,
-  Alert,
   TouchableNativeFeedback,
   TouchableHighlight,
   TouchableWithoutFeedback,
   TouchableOpacity
 } from "react-native";
-import styles from "../../styles/styles";
 
 export default class LearnTouchable extends Component {
   constructor(props) {
@@ -63,3 +62,16 @@ export default class LearnTouchable extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  buttonContainer: {
+    margin: 20
+  },
+  alternativeLayoutButtonContainer: {
+    margin: 20,
+    flexDirection: "row",
+    justifyContent: "space-between"
+  },
+  button: {},
+  buttonText: {}
+});
