@@ -6,5 +6,10 @@ const instance = axios.create({
 });
 
 export const getTickers = () => {
-  return instance.get("/v2/ticker/");
+  return instance.get("/v2/ticker/", {
+    params: {
+      limit: 1000,
+      structure: "array"
+    }
+  });
 };

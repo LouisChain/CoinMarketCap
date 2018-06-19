@@ -1,18 +1,22 @@
 import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   container: {
+    flex: 1
+  },
+  homeListItem: {
     flex: 1,
-    backgroundColor: "#F5FCFF"
+    padding: 16,
+    flexDirection: "row",
+    alignSelf: "baseline",
+    backgroundColor: "#fff"
   },
-  welcome: {
-    color: "blue",
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10
+  homeListItemImageContainer: {
+    width: 48,
+    paddingRight: 16,
+    justifyContent: "center"
   },
-  instructions: {
-    textAlign: "center",
-    color: "#333333",
-    marginBottom: 5
+  homeListItemImage :{
+    width: 32,
+    height: 32
   }
 });

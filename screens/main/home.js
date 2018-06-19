@@ -1,59 +1,188 @@
 import React, { Component } from "react";
 import {
-  Platform,
   Text,
   View,
   Image,
   FlatList,
-  ActivityIndicator
+  TouchableOpacity,
+  Alert
 } from "react-native";
-import styles from "./styles";
 import { getTickers } from "../../services/api";
+import {
+  AppActivityIndicatorFullScreen,
+  ListItemSeperator,
+  SearchBox
+} from "../../components/Generic/app-generic";
+import styles from "./styles";
 
 export default class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = { isLoading: true };
+    this.state = {
+      isLoading: true,
+      dataSource: null,
+      checkedLookup: {}
+    };
   }
 
   componentDidMount() {
     return getTickers()
       .then(response => {
-        var arr = [];
-        for (var prop in response.data.data) {
-          arr.push(response.data.data[prop]);
-        }
+        // var arr = [];
+        // for (var prop in response.data.data) {
+        //   arr.push(response.data.data[prop]);
+        // }
         this.setState({
           isLoading: false,
-          dataSource: arr
+          dataSource: response.data.data,
+          checkedLookup: {}
         });
+        loadedTickers = this.state.dataSource;
       })
       .catch(error => {
         console.error(error);
       });
   }
 
+  componentWillUnmount(){
+    loadedTickers = null;
+  }
+
+  handleItemPress = id => {
+    this.setState({
+      checkedLookup: {
+        ...this.state.checkedLookup,
+        [id]: !this.state.checkedLookup[id]
+      }
+    });
+  };
+
+  handleSelectAllPress = () => {
+    this.applyToAll(true);
+  };
+
+  handleDeselectAllPress = () => {
+    this.applyToAll(false);
+  };
+
+  applyToAll = isChecked => {
+    this.setState({
+      checkedLookup: this.state.data.reduce((acc, x) => {
+        acc[x.id] = isChecked;
+        return acc;
+      }, {})
+    });
+  };
+
+  getItemLayout = (data, index) => {
+    return {
+      length: listItemHeight,
+      offset: index * listItemHeight,
+      index
+    };
+  };
+
+  renderItem = rowData => {
+    return (
+      <ListItem
+        id={rowData.item.id}
+        // isChecked={this.state.checkedLookup[rowData.item.id]}
+        name={rowData.item.name}
+        symbol={rowData.item.symbol}
+        price={rowData.item.quotes.USD.price}
+        market_cap={rowData.item.quotes.USD.market_cap}
+        volume_24h={rowData.item.quotes.USD.volume_24h}
+        onTouch={this.handleItemPress}
+      />
+    );
+  };
+
+  handleSearBoxChange(e) {
+    // Alert.alert(text);
+    let text = e.toLowerCase();
+    let filteredName = loadedTickers.filter(ticker => {
+      return ticker.name.toLowerCase().match(text) || ticker.symbol.toLowerCase().match(text);
+    });
+
+    // if no match and text is empty
+    if (!text || text === "") {
+      console.log("change state");
+      this.setState({
+        dataSource: loadedTickers
+      });
+    }
+    // if no name matches to text output
+    else if (!Array.isArray(filteredName) && !filteredName.length) {
+      console.log("not name");
+      this.setState({
+        dataSource: []
+      });
+    }
+    // if name matches then display
+    else if (Array.isArray(filteredName)) {
+      console.log("Name");
+      this.setState({
+        dataSource: filteredName
+      });
+    }
+  }
+
   render() {
     if (this.state.isLoading) {
-      return (
-        <View style={{ flex: 1, padding: 20 }}>
-          <ActivityIndicator />
-        </View>
-      );
+      return <AppActivityIndicatorFullScreen />;
     }
-
     return (
-      <View style={{ flex: 1, paddingTop: 20 }}>
+      <View style={styles.container}>
+        <SearchBox
+          handleSearBoxChange={text => this.handleSearBoxChange(text)}
+        />
         <FlatList
           data={this.state.dataSource}
-          renderItem={({ item }) => (
-            <Text style={{ color: "black" }}>
-              {item.name}, {item.circulating_supply}
-            </Text>
-          )}
-          keyExtractor={(item, index) => item.id.toString()}
+          extraData={this.state.checkedLookup}
+          keyExtractor={item => item.id.toString()}
+          renderItem={this.renderItem}
+          ItemSeparatorComponent={ListItemSeperator}
+          getItemLayout={this.getItemLayout}
         />
       </View>
+    );
+  }
+}
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     paddingTop: Constants.statusBarHeight,
+//     backgroundColor: '#ecf0f1',
+//   },
+// });
+let loadedTickers = {};
+const listItemHeight = 132;
+const baseImageLink =
+  "https://s2.coinmarketcap.com/static/img/coins/64x64/{id}.png";
+
+class ListItem extends React.PureComponent {
+  render() {
+    return (
+      <TouchableOpacity
+        style={styles.homeListItem}
+        onPress={() => this.props.onTouch(this.props.id)}
+      >
+        <View style={styles.homeListItemImageContainer}>
+          <Image
+            source={{ uri: baseImageLink.replace("{id}", this.props.id) }}
+            style={styles.homeListItemImage}
+          />
+        </View>
+        <View style={{ flex: 1, flexDirection: "column" }}>
+          <Text>
+            {this.props.name} {this.props.symbol}
+          </Text>
+          <Text>Price: {this.props.price}</Text>
+          <Text>MarketCap: {this.props.market_cap}</Text>
+          <Text>Volume 24h: {this.props.volume_24h}</Text>
+        </View>
+      </TouchableOpacity>
     );
   }
 }

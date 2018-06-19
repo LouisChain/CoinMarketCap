@@ -8,11 +8,7 @@ import React, { Component } from "react";
 import {
   Platform,
   Text,
-  View,
-  Button,
-  Alert,
-  TabBarIOS,
-  Image
+  View
 } from "react-native";
 import styles from "./styles";
 import Tabbar from "../../components/BottomNavigation/index";
@@ -61,10 +57,10 @@ const TAB = [
     badgeNumber: 0
   },
   {
-    page: "SEARCH",
-    title: "SEARCH",
+    page: "NEWS",
+    title: "NEWS",
     icon: null,
-    iconText: "Search",
+    iconText: "News",
     badgeColor: TABBAR_BADGE_COLOR,
     badgeLabelColor: TABBAR_BADGE_LABEL_COLOR,
     badgeNumber: 0
@@ -73,7 +69,7 @@ const TAB = [
 const HOME_INDEX = 0;
 const FAVORITE_INDEX = 1;
 const HERO_ZERO_INDEX = 2;
-const SEARCH_INDEX = 3;
+const NEWS_INDEX = 3;
 export default class App extends Component {
   constructor() {
     super();
@@ -92,7 +88,7 @@ export default class App extends Component {
         {this.state.page === TAB[HOME_INDEX].page && <Home />}
         {this.state.page === TAB[FAVORITE_INDEX].page && <Text>Screen2</Text>}
         {this.state.page === TAB[HERO_ZERO_INDEX].page && <Text>Screen3</Text>}
-        {this.state.page === TAB[SEARCH_INDEX].page && <Text>Screen4</Text>}
+        {this.state.page === TAB[NEWS_INDEX].page && <Text>Screen4</Text>}
 
         <Tabbar
           type={"ripple"}
