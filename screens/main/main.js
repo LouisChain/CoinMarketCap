@@ -5,11 +5,7 @@
  */
 
 import React, { Component } from "react";
-import {
-  Platform,
-  Text,
-  View
-} from "react-native";
+import { Text, View } from "react-native";
 import styles from "./styles";
 import Tabbar from "../../components/BottomNavigation/index";
 import {
@@ -20,13 +16,6 @@ import {
   TABBAR_BADGE_LABEL_COLOR
 } from "../../styles/common";
 import Home from "./home";
-
-const instructions = Platform.select({
-  ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
-  android:
-    "Double tap R on your keyboard to reload,\n" +
-    "Shake or press menu button for dev menu"
-});
 
 const TAB = [
   {
@@ -70,7 +59,10 @@ const HOME_INDEX = 0;
 const FAVORITE_INDEX = 1;
 const HERO_ZERO_INDEX = 2;
 const NEWS_INDEX = 3;
-export default class App extends Component {
+export default class Main extends Component {
+  // static navigationOptions = {
+  //   title: 'Welcome',
+  // };
   constructor() {
     super();
     this.state = {
@@ -81,15 +73,12 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        {/* {
-          // if you are using react-navigation just pass the navigation object in your components like this:
-          // {this.state.page === "HomeScreen" && <MyComp navigation={this.props.navigation}>Screen1</MyComp>}
-        } */}
-        {this.state.page === TAB[HOME_INDEX].page && <Home />}
+        {this.state.page === TAB[HOME_INDEX].page && (
+          <Home navigation={this.props.navigation} />
+        )}
         {this.state.page === TAB[FAVORITE_INDEX].page && <Text>Screen2</Text>}
         {this.state.page === TAB[HERO_ZERO_INDEX].page && <Text>Screen3</Text>}
         {this.state.page === TAB[NEWS_INDEX].page && <Text>Screen4</Text>}
-
         <Tabbar
           type={"ripple"}
           rippleEffect={true}

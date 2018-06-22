@@ -1,12 +1,5 @@
 import React, { Component } from "react";
-import {
-  Text,
-  View,
-  Image,
-  FlatList,
-  TouchableOpacity,
-  Alert
-} from "react-native";
+import { Text, View, Image, FlatList, TouchableOpacity } from "react-native";
 import { getTickers } from "../../services/api";
 import {
   AppActivityIndicatorFullScreen,
@@ -14,6 +7,7 @@ import {
   SearchBox
 } from "../../components/Generic/app-generic";
 import styles from "./styles";
+import { COIN_DETAIL } from "../app";
 
 export default class Home extends Component {
   constructor(props) {
@@ -44,17 +38,12 @@ export default class Home extends Component {
       });
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     loadedTickers = null;
   }
 
-  handleItemPress = id => {
-    this.setState({
-      checkedLookup: {
-        ...this.state.checkedLookup,
-        [id]: !this.state.checkedLookup[id]
-      }
-    });
+  handleItemPress = (id, name) => {
+    this.props.navigation.navigate(COIN_DETAIL, { itemId: id, itemName: name });
   };
 
   handleSelectAllPress = () => {
@@ -92,16 +81,19 @@ export default class Home extends Component {
         price={rowData.item.quotes.USD.price}
         market_cap={rowData.item.quotes.USD.market_cap}
         volume_24h={rowData.item.quotes.USD.volume_24h}
-        onTouch={this.handleItemPress}
+        onTouch={() => this.handleItemPress(rowData.item.id, rowData.item.name)}
       />
     );
   };
 
-  handleSearBoxChange(e) {
+  handleSearBoxChange = e => {
     // Alert.alert(text);
     let text = e.toLowerCase();
     let filteredName = loadedTickers.filter(ticker => {
-      return ticker.name.toLowerCase().match(text) || ticker.symbol.toLowerCase().match(text);
+      return (
+        ticker.name.toLowerCase().match(text) ||
+        ticker.symbol.toLowerCase().match(text)
+      );
     });
 
     // if no match and text is empty
@@ -113,19 +105,19 @@ export default class Home extends Component {
     }
     // if no name matches to text output
     else if (!Array.isArray(filteredName) && !filteredName.length) {
-      console.log("not name");
+      console.log("no matches");
       this.setState({
         dataSource: []
       });
     }
     // if name matches then display
     else if (Array.isArray(filteredName)) {
-      console.log("Name");
+      console.log("items matches");
       this.setState({
         dataSource: filteredName
       });
     }
-  }
+  };
 
   render() {
     if (this.state.isLoading) {
@@ -133,9 +125,7 @@ export default class Home extends Component {
     }
     return (
       <View style={styles.container}>
-        <SearchBox
-          handleSearBoxChange={text => this.handleSearBoxChange(text)}
-        />
+        <SearchBox handleSearBoxChange={this.handleSearBoxChange} />
         <FlatList
           data={this.state.dataSource}
           extraData={this.state.checkedLookup}
@@ -166,7 +156,7 @@ class ListItem extends React.PureComponent {
     return (
       <TouchableOpacity
         style={styles.homeListItem}
-        onPress={() => this.props.onTouch(this.props.id)}
+        onPress={this.props.onTouch}
       >
         <View style={styles.homeListItemImageContainer}>
           <Image
