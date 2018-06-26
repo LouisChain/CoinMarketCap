@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import { Text, View, Image, FlatList, TouchableOpacity } from "react-native";
-import { getTickers } from "../../services/api";
+import Api from "../../services/api";
 import {
   AppActivityIndicatorFullScreen,
   ListItemSeperator,
   SearchBox
 } from "../../components/Generic/app-generic";
-import styles from "./styles";
+import styles from "./styles-main";
 import { COIN_DETAIL } from "../app";
+import Icon from "react-native-vector-icons/FontAwesome";
+import Common from "../../styles/common";
+import StringUtils from "../../utils/string-util";
 
 export default class Home extends Component {
   constructor(props) {
@@ -20,7 +23,7 @@ export default class Home extends Component {
   }
 
   componentDidMount() {
-    return getTickers()
+    return Api.getTickers()
       .then(response => {
         // var arr = [];
         // for (var prop in response.data.data) {
@@ -81,6 +84,9 @@ export default class Home extends Component {
         price={rowData.item.quotes.USD.price}
         market_cap={rowData.item.quotes.USD.market_cap}
         volume_24h={rowData.item.quotes.USD.volume_24h}
+        percent_change_1h={rowData.item.quotes.USD.percent_change_1h}
+        percent_change_24h={rowData.item.quotes.USD.percent_change_24h}
+        percent_change_7d={rowData.item.quotes.USD.percent_change_7d}
         onTouch={() => this.handleItemPress(rowData.item.id, rowData.item.name)}
       />
     );
@@ -125,7 +131,7 @@ export default class Home extends Component {
     }
     return (
       <View style={styles.container}>
-        <SearchBox handleSearBoxChange={this.handleSearBoxChange} />
+        {/* <SearchBox handleSearBoxChange={this.handleSearBoxChange} /> */}
         <FlatList
           data={this.state.dataSource}
           extraData={this.state.checkedLookup}
@@ -164,13 +170,77 @@ class ListItem extends React.PureComponent {
             style={styles.homeListItemImage}
           />
         </View>
-        <View style={{ flex: 1, flexDirection: "column" }}>
-          <Text>
-            {this.props.name} {this.props.symbol}
-          </Text>
-          <Text>Price: {this.props.price}</Text>
-          <Text>MarketCap: {this.props.market_cap}</Text>
-          <Text>Volume 24h: {this.props.volume_24h}</Text>
+        <View style={styles.columnFlex}>
+          <View style={styles.rowFlex}>
+            <View style={styles.columnFlex}>
+              <Text style={styles.textTitle}>
+                {this.props.name} ({this.props.symbol})
+              </Text>
+              <View style={styles.rowFlexOnly}>
+                <Text style={styles.textSubtitle}>Price: </Text>
+                <Text style={styles.textDollar}>{StringUtils.formatCurrency(this.props.price, "$")}</Text>
+              </View>
+              <View style={styles.rowFlexOnly}>
+                <Text style={styles.textSubtitle}>MarketCap: </Text>
+                <Text style={styles.textDollar}>{StringUtils.formatCurrency(this.props.market_cap, "$")}</Text>
+              </View>
+              <View style={styles.rowFlexOnly}>
+                <Text style={styles.textSubtitle}>Volume 24h: </Text>
+              <Text style={styles.textDollar}>{StringUtils.formatCurrency(this.props.volume_24h, "$")}</Text>
+              </View>
+            </View>
+            <View
+              style={{
+                justifyContent: "center"
+              }}
+            >
+              <Icon size={24} name="heart" color={Common.PRIMARY_COLOR} />
+            </View>
+          </View>
+          <View style={[styles.rowFlex, styles.changeLayout]}>
+            <View style={styles.rowFlexOnly}>
+              <Text style={styles.textSubtitle}>1h </Text>
+              <Text
+                style={
+                  this.props.percent_change_1h < 0
+                    ? styles.textNegivie
+                    : styles.textPositive
+                }
+              >
+                {this.props.percent_change_1h < 0
+                  ? this.props.percent_change_1h + "%"
+                  : "+" + this.props.percent_change_1h + "%"}
+              </Text>
+            </View>
+            <View style={styles.rowFlexOnly}>
+              <Text style={styles.textSubtitle}>24h </Text>
+              <Text
+                style={
+                  this.props.percent_change_24h < 0
+                    ? styles.textNegivie
+                    : styles.textPositive
+                }
+              >
+                {this.props.percent_change_24h < 0
+                  ? this.props.percent_change_24h + "%"
+                  : "+" + this.props.percent_change_24h + "%"}
+              </Text>
+            </View>
+            <View style={styles.rowFlexOnly}>
+              <Text style={styles.textSubtitle}>7d </Text>
+              <Text
+                style={
+                  this.props.percent_change_7d < 0
+                    ? styles.textNegivie
+                    : styles.textPositive
+                }
+              >
+                {this.props.percent_change_7d < 0
+                  ? this.props.percent_change_7d + "%"
+                  : "+" + this.props.percent_change_7d + "%"}
+              </Text>
+            </View>
+          </View>
         </View>
       </TouchableOpacity>
     );

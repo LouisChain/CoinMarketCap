@@ -5,11 +5,16 @@ const instance = axios.create({
   timeout: 30000
 });
 
-export const getTickers = () => {
-  return instance.get("/v2/ticker/", {
-    params: {
-      limit: 1000,
-      structure: "array"
-    }
-  });
+export default {
+  getTickers: () => {
+    return instance.get("/v2/ticker/", {
+      params: {
+        limit: 1000,
+        structure: "array"
+      }
+    });
+  },
+  getGlobalData: () => {
+    return instance.get("/v2/global/");
+  }
 };

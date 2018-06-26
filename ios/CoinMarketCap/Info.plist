@@ -14,6 +14,7 @@
 		<string>Zocial.ttf</string>
 		<string>EvilIcons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
+		<string>Foundation.ttf</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
@@ -52,7 +53,7 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>

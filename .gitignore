@@ -20,6 +20,7 @@ DerivedData
 *.ipa
 *.xcuserstate
 project.xcworkspace
+ios/build
 
 # Gradle
 /build/
@@ -72,3 +73,6 @@ package-lock.json
 
 # ReactCommon subdir shouldn't have Xcode project
 /ReactCommon/**/*.xcodeproj
+
+#vscode
+.vscode

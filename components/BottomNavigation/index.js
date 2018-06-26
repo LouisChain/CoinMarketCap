@@ -2,28 +2,26 @@ import React, { Component } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import Ripple from "react-native-material-ripple";
 import { Button } from "native-base";
-import { Icon } from 'react-native-elements'
+import Icon from "react-native-vector-icons/FontAwesome";
 import PropTypes from "prop-types";
 
 export default class Tabbar extends Component {
   static propTypes = {
     type: PropTypes.string,
-
     rippleEffect: PropTypes.bool,
     rippleColor: PropTypes.string,
     rippleDuration: PropTypes.number,
-
     tabbarBgColor: PropTypes.string,
     tabbarBorderTopColor: PropTypes.string,
     iconColor: PropTypes.string,
     selectedIconColor: PropTypes.string,
+    iconSize: PropTypes.number,
     labelSize: PropTypes.number,
     labelColor: PropTypes.string,
     selectedLabelColor: PropTypes.string,
     badgeColor: PropTypes.string,
     badgeLabelColor: PropTypes.string,
     badgeLabelSize: PropTypes.number,
-
     stateFunc: PropTypes.func.isRequired,
     activePage: PropTypes.string.isRequired,
     tabs: PropTypes.arrayOf(
@@ -41,15 +39,14 @@ export default class Tabbar extends Component {
 
   static defaultProps = {
     type: "button",
-
     rippleEffect: true,
     rippleColor: "green",
     rippleDuration: 280,
-
     tabbarBgColor: "#16394f",
     tabbarBorderTopColor: null,
     iconColor: "#ccc",
     selectedIconColor: "#fff",
+    iconSize: 24,
     labelSize: 12,
     labelColor: "#ccc",
     selectedLabelColor: "#fff",
@@ -73,10 +70,19 @@ export default class Tabbar extends Component {
       return style;
     };
 
-    _getIconStyle = tab => {
+    _getIconColor = tab => {
       if (this.props.activePage === tab.page)
         return { color: this.props.selectedIconColor };
-      else return { color: this.props.iconColor };
+      else return { color: this.props.iconColor};
+    };
+
+    _getIconSize = tab => {
+      if (this.props.activePage === tab.page)
+        return {
+          color: this.props.selectedIconColor,
+          size: this.props.iconSize
+        };
+      else return { color: this.props.iconColor, size: this.props.iconSize };
     };
 
     _getLabelStyle = tab => {
@@ -158,7 +164,7 @@ export default class Tabbar extends Component {
             >
               <View style={styles.tabButton}>
                 <View style={styles.iconAndBadge}>
-                  <Icon iconStyle={_getIconStyle(tab)} name={tab.icon} />
+                  <Icon style={_getIconColor(tab)} name={tab.icon} size={this.props.iconSize}/>
                   {_renderBadge(tab)}
                 </View>
                 {_renderIconText(tab)}
@@ -186,7 +192,7 @@ export default class Tabbar extends Component {
                 onPressOut={() => this.props.stateFunc(tab)}
               >
                 <View style={styles.iconAndBadge}>
-                  <Icon iconStyle={_getIconStyle(tab)} name={tab.icon} />
+                <Icon style={_getIconColor(tab)} name={tab.icon} size={this.props.iconSize}/>
                   {_renderBadge(tab)}
                 </View>
 
@@ -210,15 +216,17 @@ const styles = {
     bottom: 0,
     right: 0,
     left: 0,
-    height: 50,
+    height: 60,
     opacity: 1,
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    borderTopColor: "#c5c5c5",
+    borderTopWidth: 1
   },
   iconView: {
     flex: 1,
-    height: 50,
+    height: 60,
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "stretch"
@@ -227,7 +235,7 @@ const styles = {
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    height: 50
+    height: 60
   },
   iconAndBadge: {
     flexDirection: "row",

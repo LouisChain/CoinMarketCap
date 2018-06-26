@@ -1,35 +1,97 @@
 import React from "react";
-import { createStackNavigator } from "react-navigation";
-import Main from "../screens/main/main";
+import {
+  createTabNavigator,
+  createBottomTabNavigator,
+  TabBarBottom,
+  createStackNavigator
+} from "react-navigation";
+import Icon from "react-native-vector-icons/FontAwesome";
 import { Image, Text } from "react-native";
-import CoinDetail from "../screens/coin-detail/coin-detail";
-import Home from "../screens/main/home";
-import { PRIMARY_COLOR } from "../styles/common";
-export const MAIN = "MAIN";
-export const COIN_DETAIL = "COIN_DETAIL";
-export const HOME = "HOME";
-const App = createStackNavigator(
+import Common from "../styles/common";
+import HomeScreen from "../screens/main/home";
+import FavouriteScreen from "../screens/main/favourite";
+import GlobalScreen from "../screens/main/global";
+import NewsScreen from "../screens/main/news";
+import CoinDetailScreen from "../screens/coin-detail/coin-detail";
+
+export const HOME = "Home";
+export const FAVOURITE = "Favourite";
+export const GLOBAL_ = "Global";
+export const NEWS = "News";
+export const COIN_DETAIL = "CoinDetail";
+const TabBarScreen = createTabNavigator(
   {
-    MAIN: {
-      screen: Main,
-      headerMode: "none"
+    Home: {
+      screen: HomeScreen,
+      navigationOptions: {
+        title: "Home",
+        headerStyle: {
+          backgroundColor: Common.ACTION_BAR_COLOR
+        },
+        headerTintColor: Common.PRIMARY_TEXT_COLOR,
+        headerTitleStyle: {
+          fontSize: 18,
+          fontWeight: "normal"
+        }
+      }
     },
-    HOME: {
-      screen: Home
+    Favourite: {
+      screen: FavouriteScreen
     },
-    COIN_DETAIL: {
-      screen: CoinDetail,
-      mode: "modal"
+    Global: {
+      screen: GlobalScreen
+    },
+    News: {
+      screen: NewsScreen
     }
   },
   {
-    initialRouteName: MAIN,
-    navigationOptions: {
-      // headerTitle: <Image source={require("../icon/react.png")} />,
-      headerStyle: {
-        backgroundColor: PRIMARY_COLOR
+    navigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, tintColor }) => {
+        const { routeName } = navigation.state;
+        let iconName;
+        if (routeName === HOME) {
+          //iconName = `ios-information-circle${focused ? "" : "-outline"}`;
+          iconName = "home";
+        } else if (routeName === FAVOURITE) {
+          iconName = "heart";
+        } else if (routeName === GLOBAL_) {
+          iconName = "globe";
+        } else if (routeName === NEWS) {
+          iconName = "snowflake-o";
+        }
+        return <Icon name={iconName} size={24} color={tintColor} />;
       },
-      headerTintColor: "#fff",
+    }),
+    tabBarComponent: TabBarBottom,
+    tabBarPosition: "bottom",
+    tabBarOptions: {
+      activeTintColor: Common.PRIMARY_COLOR,
+      inactiveTintColor: Common.TAB_INACTIVE_COLOR,
+      style: {
+        backgroundColor: Common.ACTION_BAR_COLOR
+      }
+    },
+    animationEnabled: true,
+    swipeEnabled: true
+  }
+);
+
+const App = createStackNavigator(
+  {
+    TabBar: {
+      screen: TabBarScreen
+    },
+    CoinDetail: {
+      screen: CoinDetailScreen
+    }
+  },
+  {
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: Common.ACTION_BAR_COLOR
+      },
+      headerTintColor: Common.PRIMARY_TEXT_COLOR,
       headerTitleStyle: {
         fontSize: 18,
         fontWeight: "normal"
@@ -38,42 +100,6 @@ const App = createStackNavigator(
   }
 );
 
-class Modal extends React.Component {
-  render() {
-    return (
-      <Text
-        style={{
-          flex: 1,
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: 30
-        }}
-      >
-        This is a modal!
-      </Text>
-    );
-  }
-}
-
-const RootStack = createStackNavigator(
-  {
-    ROOT: {
-      screen: App
-    },
-    MODAL: {
-      screen: Modal
-    }
-  },
-  {
-    mode: "modal",
-    headerMode: "none"
-  }
-);
-
-// export default class App extends React.Component {
-//   render() {
-//     return <RootStack />;
-//   }
-// }
-
 export default App;
+// todo:
+// add last update time to home

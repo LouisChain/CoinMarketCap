@@ -1,13 +1,22 @@
-export const PRIMARY_COLOR = "#4CAF50";
-export const BACKGROUND_COLOR = "#F5FCFF";
+export default {
+  PRIMARY_COLOR: "#E9B443",
+  SECOND_PRIMARY_COLOR: "#a17a25",
+  BACKGROUND_COLOR: "#12151B",
+  BACKGROUND_COLOR_LIGHT: "#292c31",
+  ACTION_BAR_COLOR: "#202834",
+  PRIMARY_TEXT_COLOR: "#bfbfbf",
+  POSITIVE_COLOR: "#007C5F",
+  NEGATIVE_COLOR: "#99074C",
+  TAB_INACTIVE_COLOR: "gray",
 
-export const TABBAR_BACKGROUND_COLOR = "#FFF";
-export const TABBAR_ITEM_COLOR = "#9E9E9E";
-export const TABBAR_ITEM_SELECTED_COLOR = "#4CAF50";
-export const TABBAR_BADGE_COLOR = "#dd463b";
-export const TABBAR_BADGE_LABEL_COLOR = "#FFF";
+  TABBAR_BACKGROUND_COLOR: "#FFF",
+  TABBAR_ITEM_COLOR: "#9E9E9E",
+  TABBAR_ITEM_SELECTED_COLOR: "#4CAF50",
+  TABBAR_BADGE_COLOR: "#dd463b",
+  TABBAR_BADGE_LABEL_COLOR: "#FFF",
 
-export const FONT_NORMAL = "OpenSans-Regular";
-export const FONT_BOLD = "OpenSans-Bold";
+  FONT_NORMAL: "OpenSans-Regular",
+  FONT_BOLD: "OpenSans-Bold",
 
-export const BORDER_RADIUS = 5;
+  BORDER_RADIUS: 5
+};

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { View, Text, ActivityIndicator, TextInput } from "react-native";
-import { PRIMARY_COLOR } from "../../styles/common";
+import Common from "../../styles/common";
 import styles from "./styles";
 
 export class ListItemSeperator extends Component {
   render() {
-    return <Text style={{ backgroundColor: "#c0c0c0", height: 0.5 }} />;
+    return <Text style={{ backgroundColor: "#404040", height: 0.3 }} />;
   }
 }
 
@@ -15,7 +15,7 @@ export class AppActivityIndicatorFullScreen extends Component {
       <ActivityIndicator
         style={styles.indicator}
         size="large"
-        color={PRIMARY_COLOR}
+        color={Common.PRIMARY_COLOR}
       />
     );
   }

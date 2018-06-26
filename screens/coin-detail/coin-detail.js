@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Text } from "react-native";
 import { Button } from "react-native-elements";
 import { View } from "native-base";
-import { PRIMARY_COLOR } from "../../styles/common";
+// import { VectorIcon } from "../../icon/vector-icon";
 
 export default class CoinDetail extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -37,6 +37,9 @@ export default class CoinDetail extends Component {
             this.props.navigation.setParams({ itemName: "Detail" })
           }
         />
+
+        {/* <VectorIcon name="SortArrows" height="20" width="20" />
+        <VectorIcon name="Tick" fill="#0f0" viewBox="0 0 200 200" /> */}
       </View>
     );
   }

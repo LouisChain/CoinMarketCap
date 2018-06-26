@@ -1,33 +1,58 @@
 import React from "react";
-import {Text, Button} from "react-native";
-import { createStackNavigator } from "react-navigation";
+import { Text, View } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome"; // Version can be specified in package.json
+import { TabNavigator, TabBarBottom } from "react-navigation"; // Version can be specified in package.json
+import Common from "./styles/common";
 
-class Test1 extends React.Component{
-    render(){
-        return <Button onPress={() => this.props.navigation.navigate("Home1")} title="Button"></Button>
-    }
+class HomeScreen extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text>Home!</Text>
+      </View>
+    );
+  }
 }
 
-class Test2 extends React.Component{
-    render(){
-        return <Text>Test2</Text>
-    }
+class SettingsScreen extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text style={{color: Common.abc}}>Settings!</Text>
+      </View>
+    );
+  }
 }
 
-const App = createStackNavigator(
-    {
-      Home: { screen: Test1 },
-      Home1: { screen: Test2 }
+export default TabNavigator(
+  {
+    Home: { screen: HomeScreen },
+    Settings: { screen: SettingsScreen }
+  },
+  {
+    navigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, tintColor }) => {
+        const { routeName } = navigation.state;
+        let iconName;
+        if (routeName === "Home") {
+          iconName = `ios-information-circle${focused ? "" : "-outline"}`;
+        } else if (routeName === "Settings") {
+          iconName = `ios-options${focused ? "" : "-outline"}`;
+        }
+
+        iconName = 'home';
+        // You can return any component that you like here! We usually use an
+        // icon component from react-native-vector-icons
+        return <Icon name={iconName} size={25} color={tintColor} />;
+      }
+    }),
+    tabBarComponent: TabBarBottom,
+    tabBarPosition: "bottom",
+    tabBarOptions: {
+      activeTintColor: "tomato",
+      inactiveTintColor: "gray"
     },
-    {
-      initialRouteName: "Home"
-    }
-  );
-  
-  // export default class App extends React.Component {
-  //   render() {
-  //     return <RootStack />;
-  //   }
-  // }
-  
-  export default App;
+    animationEnabled: false,
+    swipeEnabled: false
+  }
+);
