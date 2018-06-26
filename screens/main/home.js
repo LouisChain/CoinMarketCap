@@ -45,8 +45,8 @@ export default class Home extends Component {
     loadedTickers = null;
   }
 
-  handleItemPress = (id, name) => {
-    this.props.navigation.navigate(COIN_DETAIL, { itemId: id, itemName: name });
+  handleItemPress = (rowData) => {
+    this.props.navigation.navigate(COIN_DETAIL, rowData);
   };
 
   handleSelectAllPress = () => {
@@ -75,19 +75,31 @@ export default class Home extends Component {
   };
 
   renderItem = rowData => {
+    let item = {
+      id: rowData.item.id,
+      symbol: rowData.item.symbol,
+      name: rowData.item.name,
+      price: rowData.item.quotes.USD.price,
+      marketCap: rowData.item.quotes.USD.market_cap,
+      volume24h: rowData.item.quotes.USD.volume_24h,
+      change1h: rowData.item.quotes.USD.percent_change_1h,
+      change24h: rowData.item.quotes.USD.percent_change_24h,
+      change7d: rowData.item.quotes.USD.percent_change_7d,
+      lastUpdate: rowData.item.last_updated
+    };
     return (
       <ListItem
-        id={rowData.item.id}
+        id={item.id}
         // isChecked={this.state.checkedLookup[rowData.item.id]}
-        name={rowData.item.name}
-        symbol={rowData.item.symbol}
-        price={rowData.item.quotes.USD.price}
-        market_cap={rowData.item.quotes.USD.market_cap}
-        volume_24h={rowData.item.quotes.USD.volume_24h}
-        percent_change_1h={rowData.item.quotes.USD.percent_change_1h}
-        percent_change_24h={rowData.item.quotes.USD.percent_change_24h}
-        percent_change_7d={rowData.item.quotes.USD.percent_change_7d}
-        onTouch={() => this.handleItemPress(rowData.item.id, rowData.item.name)}
+        name={item.name}
+        symbol={item.symbol}
+        price={item.price}
+        market_cap={item.marketCap}
+        volume_24h={item.volume24h}
+        percent_change_1h={item.change1h}
+        percent_change_24h={item.change24h}
+        percent_change_7d={item.change7d}
+        onTouch={() => this.handleItemPress(item)}
       />
     );
   };
@@ -178,15 +190,21 @@ class ListItem extends React.PureComponent {
               </Text>
               <View style={styles.rowFlexOnly}>
                 <Text style={styles.textSubtitle}>Price: </Text>
-                <Text style={styles.textDollar}>{StringUtils.formatCurrency(this.props.price, "$")}</Text>
+                <Text style={styles.textDollar}>
+                  {StringUtils.formatCurrency(this.props.price, "$")}
+                </Text>
               </View>
               <View style={styles.rowFlexOnly}>
                 <Text style={styles.textSubtitle}>MarketCap: </Text>
-                <Text style={styles.textDollar}>{StringUtils.formatCurrency(this.props.market_cap, "$")}</Text>
+                <Text style={styles.textDollar}>
+                  {StringUtils.formatCurrency(this.props.market_cap, "$")}
+                </Text>
               </View>
               <View style={styles.rowFlexOnly}>
                 <Text style={styles.textSubtitle}>Volume 24h: </Text>
-              <Text style={styles.textDollar}>{StringUtils.formatCurrency(this.props.volume_24h, "$")}</Text>
+                <Text style={styles.textDollar}>
+                  {StringUtils.formatCurrency(this.props.volume_24h, "$")}
+                </Text>
               </View>
             </View>
             <View

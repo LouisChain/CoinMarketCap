@@ -23,17 +23,6 @@ const TabBarScreen = createTabNavigator(
   {
     Home: {
       screen: HomeScreen,
-      navigationOptions: {
-        title: "Home",
-        headerStyle: {
-          backgroundColor: Common.ACTION_BAR_COLOR
-        },
-        headerTintColor: Common.PRIMARY_TEXT_COLOR,
-        headerTitleStyle: {
-          fontSize: 18,
-          fontWeight: "normal"
-        }
-      }
     },
     Favourite: {
       screen: FavouriteScreen
@@ -91,7 +80,7 @@ const App = createStackNavigator(
       headerStyle: {
         backgroundColor: Common.ACTION_BAR_COLOR
       },
-      headerTintColor: Common.PRIMARY_TEXT_COLOR,
+      headerTintColor: Common.PRIMARY_COLOR,
       headerTitleStyle: {
         fontSize: 18,
         fontWeight: "normal"

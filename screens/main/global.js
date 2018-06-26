@@ -8,7 +8,7 @@ import Api from "../../services/api";
 
 export default class Global extends Component {
   static navigationOptions = {
-    title: "Home"
+    title: "Global Data"
   };
 
   constructor(props) {
