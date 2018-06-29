@@ -18,9 +18,14 @@ export default {
     return instance.get("/v2/global/");
   },
   getHistoricalData: (period, symbol) => {
-    let url = "http://coincap.io/history/{period}/{symbol}";
-    url = url.replace("{period}", period);
+    let url = "/history{period}/{symbol}";
+    url = url.replace("{period}", period == null ? "" : "/" + period);
     url = url.replace("{symbol}", symbol);
-    return axios.get(url);
+    return axios
+      .create({
+        baseURL: "http://coincap.io",
+        timeout: 30000
+      })
+      .get(url);
   }
 };

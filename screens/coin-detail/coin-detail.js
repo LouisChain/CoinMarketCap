@@ -1,14 +1,15 @@
-import React, { Component } from "react";
-import { Text } from "react-native";
-import { View } from "native-base";
+import React from "react";
+import { View, ScrollView, Text } from "react-native";
 import styles from "./styles-detail";
 import TimeUtil from "../../utils/time-util";
 import StringUtil from "../../utils/string-util";
 import { AreaChart, Grid } from "react-native-svg-charts";
 import * as shape from "d3-shape";
 import Api from "../../services/api";
+import SegmentControl from "../../components/Segment/segment-index";
+import { AppActivityIndicatorFullScreen } from "../../components/Generic/app-generic";
 
-export default class CoinDetail extends React.Component {
+export default class CoinDetail extends React.PureComponent {
   static navigationOptions = ({ navigation }) => {
     return {
       title: navigation.getParam("name", "Detail")
@@ -25,20 +26,62 @@ export default class CoinDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      chartData: [50, 10, 40, 95, 85, 91, 35, 53, 24, 50]
+      chartData: [],
+      isLoading: true,
+      selectedIndex: 0
     };
   }
 
   componentDidMount() {
-    return Api.getHistoricalData("1day", "BTC")
+    let symbol = this.props.navigation.getParam("symbol", "BTC");
+    return this.handleLoadChartByInput("1day", symbol);
+  }
+
+  handleLoadChartByIndex = index => {
+    if (index === this.state.selectedIndex) {
+      return;
+    }
+    this.setState({
+      isLoading: true,
+      selectedIndex: index
+    });
+    let symbol = this.props.navigation.getParam("symbol", "BTC");
+    switch (index) {
+      case 0:
+        this.handleLoadChartByInput("1day", symbol);
+        break;
+      case 1:
+        this.handleLoadChartByInput("7day", symbol);
+        break;
+      case 2:
+        this.handleLoadChartByInput("30day", symbol);
+        break;
+      case 3:
+        this.handleLoadChartByInput("90day", symbol);
+        break;
+      case 4:
+        this.handleLoadChartByInput("180day", symbol);
+        break;
+      case 5:
+        this.handleLoadChartByInput("365day", symbol);
+        break;
+      case 6:
+        this.handleLoadChartByInput(null, symbol);
+        break;
+    }
+  };
+
+  handleLoadChartByInput = (period, symbol) => {
+    return Api.getHistoricalData(period, symbol.toUpperCase())
       .then(response => {
-        let data = response.price;
+        let data = response.data.price;
         let result = [];
-        for (var i = 0; i < data.length; i += 12) {
+        for (var i = 0; i < data.length; i += 1) {
           // the record every 5 mins a price, so we get 1hour a price
           result.push(data[i][1]);
         }
         this.setState({
+          isLoading: false,
           chartData: result
         });
       })
@@ -46,12 +89,12 @@ export default class CoinDetail extends React.Component {
         console.log(error);
         // Handle error;
       });
-  }
+  };
 
   render() {
     let params = this.props.navigation.state.params;
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <View
           style={{
             flexDirection: "column",
@@ -108,20 +151,42 @@ export default class CoinDetail extends React.Component {
           </View>
         </View>
         {/* Chart view */}
-        <View>
-          {/* <AreaChart
-            style={{ height: 200 }}
-            data={this.state.chartData}
-            contentInset={{ top: 30, bottom: 30 }}
-            curve={shape.curveNatural}
-            svg={{ fill: "rgba(134, 65, 244, 0.8)" }}
-          >
-            <Grid />
-          </AreaChart> */}
+        <View style={{ height: 250, marginBottom: 16 }}>
+          {this.state.isLoading ? (
+            <AppActivityIndicatorFullScreen style={{ height: 240 }} />
+          ) : (
+            <AreaChart
+              style={{ height: 250 }}
+              data={this.state.chartData}
+              contentInset={{ top: 16, bottom: 16 }}
+              curve={shape.curveNatural}
+              svg={{ fill: "rgba(0,124,95,0.9)" }}
+              animate={true}
+              animationDuration={500}
+            />
+          )}
         </View>
         {/* Selection view */}
+        <SegmentControl
+          segmentProps={{
+            count: 3,
+            data: ["1D", "1W", "1M", "3M", "6M", "1Y", "All"],
+            buttonStyle: {
+              fontSize: 14,
+              textActiveColor: "#bfbfbf",
+              textInactiveColor: "#99074C"
+            },
+            inactiveColor: "#12151B",
+            activeColor: "#99074C",
+            borderColor: "#99074C",
+            borderWidth: 0.5,
+            selectedIndex: 0
+          }}
+          onSegmentClick={index => this.handleLoadChartByIndex(index)}
+        />
+        {/* BottomView */}
         <View />
-      </View>
+      </ScrollView>
     );
   }
 }
