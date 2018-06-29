@@ -13,5 +13,11 @@ export default {
     if (day.length < 2) day = "0" + day;
 
     return [year, month, day].join("-") + " " + end;
+  },
+  toHours: l => {
+    var d = new Date(l),
+      hour = d.getHours(),
+      minute = d.getMinutes();
+    return [hour, minute].join(":");
   }
 };

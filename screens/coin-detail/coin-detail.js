@@ -3,7 +3,7 @@ import { View, ScrollView, Text } from "react-native";
 import styles from "./styles-detail";
 import TimeUtil from "../../utils/time-util";
 import StringUtil from "../../utils/string-util";
-import { AreaChart, Grid } from "react-native-svg-charts";
+import { AreaChart, YAxis, XAxis } from "react-native-svg-charts";
 import * as shape from "d3-shape";
 import Api from "../../services/api";
 import SegmentControl from "../../components/Segment/segment-index";
@@ -27,6 +27,7 @@ export default class CoinDetail extends React.PureComponent {
     super(props);
     this.state = {
       chartData: [],
+      chartTime: [],
       isLoading: true,
       selectedIndex: 0
     };
@@ -76,13 +77,17 @@ export default class CoinDetail extends React.PureComponent {
       .then(response => {
         let data = response.data.price;
         let result = [];
-        for (var i = 0; i < data.length; i += 1) {
-          // the record every 5 mins a price, so we get 1hour a price
+        let time = [];
+        for (var i = 0; i < data.length; i++) {
           result.push(data[i][1]);
+          // let t = TimeUtil.toHours(data[i][0]);
+          // console.log(t);
+          time.push(data[i][0]);
         }
         this.setState({
           isLoading: false,
-          chartData: result
+          chartData: result,
+          chartTime: time
         });
       })
       .catch(error => {
@@ -153,17 +158,40 @@ export default class CoinDetail extends React.PureComponent {
         {/* Chart view */}
         <View style={{ height: 250, marginBottom: 16 }}>
           {this.state.isLoading ? (
-            <AppActivityIndicatorFullScreen style={{ height: 240 }} />
+            <AppActivityIndicatorFullScreen />
           ) : (
-            <AreaChart
-              style={{ height: 250 }}
-              data={this.state.chartData}
-              contentInset={{ top: 16, bottom: 16 }}
-              curve={shape.curveNatural}
-              svg={{ fill: "rgba(0,124,95,0.9)" }}
-              animate={true}
-              animationDuration={500}
-            />
+            <View style={{ height: 250, flexDirection: "column" }}>
+              <View style={{ height: 250, flexDirection: "row" }}>
+                <YAxis
+                  style={{ width: 50 }}
+                  data={this.state.chartData}
+                  contentInset={{ top: 1, bottom: 4 }}
+                  svg={{
+                    fill: "#bfbfbf",
+                    fontSize: 10
+                  }}
+                  numberOfTicks={10}
+                  formatLabel={value => `$${value}`}
+                />
+                <AreaChart
+                  style={{ height: 250, flex: 1 }}
+                  data={this.state.chartData}
+                  contentInset={{ top: 16, bottom: 16 }}
+                  curve={shape.curveNatural}
+                  svg={{ fill: "rgba(0,124,95,0.9)" }}
+                  animate={true}
+                  animationDuration={500}
+                />
+              </View>
+              <XAxis
+                style={{ marginTop: 2, marginLeft: 50 }}
+                data={this.state.chartTime}
+                formatLabel={(value, index) => index}
+                contentInset={{ left: 4, right: 1 }}
+                numberOfTicks={8}
+                svg={{ fontSize: 10, fill: "#bfbfbf" }}
+              />
+            </View>
           )}
         </View>
         {/* Selection view */}
