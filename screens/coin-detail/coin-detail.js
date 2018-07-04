@@ -24,6 +24,7 @@ export default class CoinDetail extends React.PureComponent {
   };
 
   constructor(props) {
+    console.log("constructor\n");
     super(props);
     this.state = {
       chartData: [],
@@ -34,12 +35,26 @@ export default class CoinDetail extends React.PureComponent {
   }
 
   componentDidMount() {
+    console.log("componentDidMount\n");
     let symbol = this.props.navigation.getParam("symbol", "BTC");
     return this.handleLoadChartByInput("1day", symbol);
   }
 
+  getSnapshotBeforeUpdate(){
+    console.log("getSnapshotBeforeUpdate\n");
+    return null;
+  }
+
+  componentDidUpdate() {
+    console.log("componentDidUpdate\n");
+  }
+
+  componentWillUnmount(){
+    console.log("componentWillUnmount\n");
+  }
+
   handleLoadChartByIndex = index => {
-    if (index === this.state.selectedIndex) {
+    if (index === this.state.selectedIndex || this.state.isLoading) {
       return;
     }
     this.setState({
@@ -97,6 +112,7 @@ export default class CoinDetail extends React.PureComponent {
   };
 
   render() {
+    console.log("render\n");
     let params = this.props.navigation.state.params;
     return (
       <ScrollView style={styles.container}>
@@ -178,7 +194,7 @@ export default class CoinDetail extends React.PureComponent {
                   data={this.state.chartData}
                   contentInset={{ top: 16, bottom: 16 }}
                   curve={shape.curveNatural}
-                  svg={{ fill: "rgba(0,124,95,0.9)" }}
+                  svg={{ fill: "rgba(0,124,95,0.5)" }}
                   animate={true}
                   animationDuration={500}
                 />
