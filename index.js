@@ -1,5 +1,5 @@
 import { AppRegistry } from "react-native";
-import App from "./src/screens/app";
+import App from "./src/app";
 import { YellowBox } from "react-native";
 // import App from "./test"
 YellowBox.ignoreWarnings([

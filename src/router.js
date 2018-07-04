@@ -6,13 +6,12 @@ import {
   createStackNavigator
 } from "react-navigation";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { Image, Text } from "react-native";
-import Common from "../styles/common";
-import HomeScreen from "../screens/main/home";
-import FavouriteScreen from "../screens/main/favourite";
-import GlobalScreen from "../screens/main/global";
-import NewsScreen from "../screens/main/news";
-import CoinDetailScreen from "../screens/coin-detail/coin-detail";
+import Common from "../src/styles/common";
+import HomeScreen from "../src/screens/main/home";
+import FavouriteScreen from "../src/screens/main/favourite";
+import GlobalScreen from "../src/screens/main/global";
+import NewsScreen from "../src/screens/main/news";
+import CoinDetailScreen from "../src/screens/coin-detail/coin-detail";
 
 export const HOME = "Home";
 export const FAVOURITE = "Favourite";
@@ -22,7 +21,7 @@ export const COIN_DETAIL = "CoinDetail";
 const TabBarScreen = createTabNavigator(
   {
     Home: {
-      screen: HomeScreen,
+      screen: HomeScreen
     },
     Favourite: {
       screen: FavouriteScreen
@@ -50,7 +49,7 @@ const TabBarScreen = createTabNavigator(
           iconName = "snowflake-o";
         }
         return <Icon name={iconName} size={24} color={tintColor} />;
-      },
+      }
     }),
     tabBarComponent: TabBarBottom,
     tabBarPosition: "bottom",
@@ -66,7 +65,7 @@ const TabBarScreen = createTabNavigator(
   }
 );
 
-const App = createStackNavigator(
+const Router = createStackNavigator(
   {
     TabBar: {
       screen: TabBarScreen
@@ -89,6 +88,6 @@ const App = createStackNavigator(
   }
 );
 
-export default App;
+export default Router;
 // todo:
 // add last update time to home
