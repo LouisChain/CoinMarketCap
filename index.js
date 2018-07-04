@@ -1,7 +1,10 @@
-import { AppRegistry } from 'react-native';
-import App from "./screens/app";
-import { YellowBox } from 'react-native';
+import { AppRegistry } from "react-native";
+import App from "./src/screens/app";
+import { YellowBox } from "react-native";
 // import App from "./test"
-YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
+YellowBox.ignoreWarnings([
+  "Warning: isMounted(...) is deprecated",
+  "Module RCTImageLoader"
+]);
 
-AppRegistry.registerComponent('CoinMarketCap', () => App);
+AppRegistry.registerComponent("CoinMarketCap", () => App);
