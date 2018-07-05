@@ -4,7 +4,7 @@ import styles from "./styles-main";
 import StringUtil from "../../utils/string-util";
 import TimeUtil from "../../utils/time-util";
 import { AppActivityIndicatorFullScreen } from "../../components/Generic/app-generic";
-import Api from "../../services/api";
+import { getGlobalData } from "../../services/api";
 
 export default class Global extends Component {
   static navigationOptions = {
@@ -20,7 +20,7 @@ export default class Global extends Component {
   }
 
   componentDidMount() {
-    return Api.getGlobalData()
+    return getGlobalData()
       .then(response => {
         this.setState({
           isLoading: false,

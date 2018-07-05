@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Text, View, Image, FlatList, TouchableOpacity } from "react-native";
-import Api from "../../services/api";
+import { getTickers } from "../../services/api";
 import {
   AppActivityIndicatorFullScreen,
   ListItemSeperator,
@@ -23,7 +23,7 @@ export default class Home extends Component {
   }
 
   componentDidMount() {
-    return Api.getTickers()
+    return getTickers()
       .then(response => {
         // var arr = [];
         // for (var prop in response.data.data) {
@@ -45,7 +45,7 @@ export default class Home extends Component {
     loadedTickers = null;
   }
 
-  handleItemPress = (rowData) => {
+  handleItemPress = rowData => {
     this.props.navigation.navigate(COIN_DETAIL, rowData);
   };
 

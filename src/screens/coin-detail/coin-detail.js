@@ -5,7 +5,7 @@ import TimeUtil from "../../utils/time-util";
 import StringUtil from "../../utils/string-util";
 import { AreaChart, YAxis, XAxis } from "react-native-svg-charts";
 import * as shape from "d3-shape";
-import Api from "../../services/api";
+import { getHistoricalData } from "../../services/api";
 import SegmentControl from "../../components/Segment/segment-index";
 import { AppActivityIndicatorFullScreen } from "../../components/Generic/app-generic";
 
@@ -40,7 +40,7 @@ export default class CoinDetail extends React.PureComponent {
     return this.handleLoadChartByInput("1day", symbol);
   }
 
-  getSnapshotBeforeUpdate(){
+  getSnapshotBeforeUpdate() {
     console.log("getSnapshotBeforeUpdate\n");
     return null;
   }
@@ -49,7 +49,7 @@ export default class CoinDetail extends React.PureComponent {
     console.log("componentDidUpdate\n");
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     console.log("componentWillUnmount\n");
   }
 
@@ -88,7 +88,7 @@ export default class CoinDetail extends React.PureComponent {
   };
 
   handleLoadChartByInput = (period, symbol) => {
-    return Api.getHistoricalData(period, symbol.toUpperCase())
+    return getHistoricalData(period, symbol.toUpperCase())
       .then(response => {
         let data = response.data.price;
         let result = [];
