@@ -6,8 +6,8 @@
 
 import React, { Component } from "react";
 import { Text, View } from "react-native";
-import styles from "./styles";
-import Tabbar from "../../components/BottomNavigation/index";
+import styles from "./styles-main";
+import Tabbar from "../../BottomNavigation/index";
 import Common from "../../styles/common";
 import Home from "./home";
 

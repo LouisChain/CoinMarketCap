@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, ActivityIndicator, TextInput } from "react-native";
-import Common from "../../styles/common";
+import Common from "../styles/common";
 import styles from "./styles";
 
 export class ListItemSeperator extends Component {

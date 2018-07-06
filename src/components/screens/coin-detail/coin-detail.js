@@ -1,13 +1,13 @@
 import React from "react";
 import { View, ScrollView, Text } from "react-native";
 import styles from "./styles-detail";
-import TimeUtil from "../../utils/time-util";
-import StringUtil from "../../utils/string-util";
+import TimeUtil from "../../../utils/time-util";
+import StringUtil from "../../../utils/string-util";
 import { AreaChart, YAxis, XAxis } from "react-native-svg-charts";
 import * as shape from "d3-shape";
-import { getHistoricalData } from "../../services/cloud/api";
-import SegmentControl from "../../components/Segment/segment-index";
-import { AppActivityIndicatorFullScreen } from "../../components/Generic/app-generic";
+import { getHistoricalData } from "../../../services/cloud/api";
+import SegmentControl from "../../Segment/segment-index";
+import { AppActivityIndicatorFullScreen } from "../../Generic/app-generic";
 
 export default class CoinDetail extends React.PureComponent {
   static navigationOptions = ({ navigation }) => {

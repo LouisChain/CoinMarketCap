@@ -6,12 +6,12 @@ import {
   createStackNavigator
 } from "react-navigation";
 import Icon from "react-native-vector-icons/FontAwesome";
-import Common from "../src/styles/common";
-import HomeScreen from "../src/screens/main/home";
-import FavouriteScreen from "../src/screens/main/favourite";
-import GlobalScreen from "../src/screens/main/global";
-import NewsScreen from "../src/screens/main/news";
-import CoinDetailScreen from "../src/screens/coin-detail/coin-detail";
+import Common from "./styles/common";
+import HomeScreen from "./screens/main/home";
+import FavouriteScreen from "./screens/main/favourite";
+import GlobalScreen from "./screens/main/global";
+import NewsScreen from "./screens/main/news";
+import CoinDetailScreen from "./screens/coin-detail/coin-detail";
 
 export const HOME = "Home";
 export const FAVOURITE = "Favourite";

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { View, Text, ScrollView } from "react-native";
 import styles from "./styles-main";
-import StringUtil from "../../utils/string-util";
-import TimeUtil from "../../utils/time-util";
-import { AppActivityIndicatorFullScreen } from "../../components/Generic/app-generic";
-import { getGlobalData } from "../../services/cloud/api";
+import StringUtil from "../../../utils/string-util";
+import TimeUtil from "../../../utils/time-util";
+import { AppActivityIndicatorFullScreen } from "../../Generic/app-generic";
+import { getGlobalData } from "../../../services/cloud/api";
 
 export default class Global extends Component {
   static navigationOptions = {

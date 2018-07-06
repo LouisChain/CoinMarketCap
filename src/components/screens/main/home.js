@@ -1,17 +1,16 @@
 import React, { Component } from "react";
 import { Text, View, Image, FlatList, TouchableOpacity } from "react-native";
-import { getTickers } from "../../services/cloud/api";
+import { getTickers } from "../../../services/cloud/api";
 import {
   AppActivityIndicatorFullScreen,
   ListItemSeperator,
   SearchBox
-} from "../../components/Generic/app-generic";
+} from "../../Generic/app-generic";
 import styles from "./styles-main";
 import { COIN_DETAIL } from "../../router";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Common from "../../styles/common";
-import StringUtils from "../../utils/string-util";
-import db from "../../services/local/crypto-db";
+import StringUtils from "../../../utils/string-util";
 
 export default class Home extends Component {
   constructor(props) {
@@ -20,7 +19,6 @@ export default class Home extends Component {
       isLoading: true,
       dataSource: null
     };
-    db.insertCrypto();
   }
 
   componentDidMount() {

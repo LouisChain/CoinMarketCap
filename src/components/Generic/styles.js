@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import Common from "../../styles/common";
+import Common from "../styles/common";
 
 export default StyleSheet.create({
   indicator: {
