@@ -11,6 +11,7 @@ import { COIN_DETAIL } from "../../router";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Common from "../../styles/common";
 import StringUtils from "../../utils/string-util";
+import db from "../../services/local/crypto-db";
 
 export default class Home extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ export default class Home extends Component {
       dataSource: null,
       checkedLookup: {}
     };
+    db.insertCrypto();
   }
 
   componentDidMount() {
