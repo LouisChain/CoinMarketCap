@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Text, View, Image, FlatList, TouchableOpacity } from "react-native";
-import { getTickers } from "../../services/api";
+import { getTickers } from "../../services/cloud/api";
 import {
   AppActivityIndicatorFullScreen,
   ListItemSeperator,
@@ -18,8 +18,7 @@ export default class Home extends Component {
     super(props);
     this.state = {
       isLoading: true,
-      dataSource: null,
-      checkedLookup: {}
+      dataSource: null
     };
     db.insertCrypto();
   }
@@ -33,8 +32,7 @@ export default class Home extends Component {
         // }
         this.setState({
           isLoading: false,
-          dataSource: response.data.data,
-          checkedLookup: {}
+          dataSource: response.data.data
         });
         loadedTickers = this.state.dataSource;
       })
@@ -49,23 +47,6 @@ export default class Home extends Component {
 
   handleItemPress = rowData => {
     this.props.navigation.navigate(COIN_DETAIL, rowData);
-  };
-
-  handleSelectAllPress = () => {
-    this.applyToAll(true);
-  };
-
-  handleDeselectAllPress = () => {
-    this.applyToAll(false);
-  };
-
-  applyToAll = isChecked => {
-    this.setState({
-      checkedLookup: this.state.data.reduce((acc, x) => {
-        acc[x.id] = isChecked;
-        return acc;
-      }, {})
-    });
   };
 
   getItemLayout = (data, index) => {
@@ -92,7 +73,6 @@ export default class Home extends Component {
     return (
       <ListItem
         id={item.id}
-        // isChecked={this.state.checkedLookup[rowData.item.id]}
         name={item.name}
         symbol={item.symbol}
         price={item.price}
@@ -148,7 +128,6 @@ export default class Home extends Component {
         {/* <SearchBox handleSearBoxChange={this.handleSearBoxChange} /> */}
         <FlatList
           data={this.state.dataSource}
-          extraData={this.state.checkedLookup}
           keyExtractor={item => item.id.toString()}
           renderItem={this.renderItem}
           ItemSeparatorComponent={ListItemSeperator}
