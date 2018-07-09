@@ -47,7 +47,7 @@ android/app/libs
 .gradle
 local.properties
 *.iml
-/android/app/build
+android/app/build
 
 # Node
 node_modules
