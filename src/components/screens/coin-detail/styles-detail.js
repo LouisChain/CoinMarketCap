@@ -1,9 +1,9 @@
 import { StyleSheet } from "react-native";
-import Common from "../../styles/common"
+import Theme from "../../../styles/theme";
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Common.BACKGROUND_COLOR
+    backgroundColor: Theme.color.BACKGROUND_COLOR
   },
   rowFlex: {
     flex: 1,
@@ -21,29 +21,29 @@ export default StyleSheet.create({
     marginTop: 4
   },
   textTitle: {
-    color: Common.PRIMARY_COLOR,
+    color: Theme.color.PRIMARY_COLOR,
     fontSize: 16,
     fontWeight: "bold"
   },
   textSubtitle: {
-    color: Common.SECOND_PRIMARY_COLOR,
+    color: Theme.color.SECOND_PRIMARY_COLOR,
     fontSize: 14
   },
   textDollar: {
     fontWeight: "bold",
-    color: Common.PRIMARY_TEXT_COLOR,
+    color: Theme.color.PRIMARY_TEXT_COLOR,
     fontSize: 14
   },
   textPositive: {
-    color: Common.POSITIVE_COLOR,
+    color: Theme.color.POSITIVE_COLOR,
     fontSize: 14
   },
   textNegivie: {
-    color: Common.NEGATIVE_COLOR,
+    color: Theme.color.NEGATIVE_COLOR,
     fontSize: 14
   },
   timeStyle: {
-    color: Common.PRIMARY_TEXT_COLOR,
+    color: Theme.color.PRIMARY_TEXT_COLOR,
     fontStyle: "italic"
   },
 });

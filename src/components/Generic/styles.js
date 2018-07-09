@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import Common from "../styles/common";
+import Theme from "../../styles/theme";
 
 export default StyleSheet.create({
   indicator: {
@@ -7,7 +7,7 @@ export default StyleSheet.create({
     alignSelf: "stretch",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: Common.BACKGROUND_COLOR
+    backgroundColor: Theme.color.BACKGROUND_COLOR
   },
   searchBoxContainer: {
     padding: 8,

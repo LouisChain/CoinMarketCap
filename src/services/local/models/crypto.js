@@ -24,6 +24,6 @@ Crypto.schema = {
     percent_change_24h: "float",
     percent_change_7d: "float",
     last_updated: "float",
-    isFavourite: "bool"
+    my_favourite: "bool"
   }
 };

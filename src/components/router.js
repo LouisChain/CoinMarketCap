@@ -6,7 +6,7 @@ import {
   createStackNavigator
 } from "react-navigation";
 import Icon from "react-native-vector-icons/FontAwesome";
-import Common from "./styles/common";
+import Theme from "../styles/theme";
 import HomeScreen from "./screens/main/home";
 import FavouriteScreen from "./screens/main/favourite";
 import GlobalScreen from "./screens/main/global";
@@ -54,10 +54,10 @@ const TabBarScreen = createTabNavigator(
     tabBarComponent: TabBarBottom,
     tabBarPosition: "bottom",
     tabBarOptions: {
-      activeTintColor: Common.PRIMARY_COLOR,
-      inactiveTintColor: Common.TAB_INACTIVE_COLOR,
+      activeTintColor: Theme.color.PRIMARY_COLOR,
+      inactiveTintColor: Theme.color.TAB_INACTIVE_COLOR,
       style: {
-        backgroundColor: Common.ACTION_BAR_COLOR
+        backgroundColor: Theme.color.ACTION_BAR_COLOR
       }
     },
     animationEnabled: true,
@@ -77,9 +77,9 @@ const Router = createStackNavigator(
   {
     navigationOptions: {
       headerStyle: {
-        backgroundColor: Common.ACTION_BAR_COLOR
+        backgroundColor: Theme.color.ACTION_BAR_COLOR
       },
-      headerTintColor: Common.PRIMARY_COLOR,
+      headerTintColor: Theme.color.PRIMARY_COLOR,
       headerTitleStyle: {
         fontSize: 18,
         fontWeight: "normal"

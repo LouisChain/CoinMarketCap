@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, ActivityIndicator, TextInput } from "react-native";
-import Common from "../styles/common";
+import Theme from "../../styles/theme";
 import styles from "./styles";
 
 export class ListItemSeperator extends Component {
@@ -15,7 +15,7 @@ export class AppActivityIndicatorFullScreen extends Component {
       <ActivityIndicator
         style={styles.indicator}
         size="large"
-        color={Common.PRIMARY_COLOR}
+        color={Theme.color.PRIMARY_COLOR}
       />
     );
   }

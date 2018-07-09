@@ -18,7 +18,7 @@ class Db {
         percent_change_24h: 7,
         percent_change_7d: -9,
         last_updated: 100,
-        isFavourite: true
+        my_favourite: true
       };
       DbHelper.singleInsert("Crypto", values);
     } catch (err) {

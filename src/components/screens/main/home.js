@@ -9,7 +9,7 @@ import {
 import styles from "./styles-main";
 import { COIN_DETAIL } from "../../router";
 import Icon from "react-native-vector-icons/FontAwesome";
-import Common from "../../styles/common";
+import Theme from "../../../styles/theme";
 import StringUtils from "../../../utils/string-util";
 
 export default class Home extends Component {
@@ -191,7 +191,7 @@ class ListItem extends React.PureComponent {
                 justifyContent: "center"
               }}
             >
-              <Icon size={24} name="heart" color={Common.PRIMARY_COLOR} />
+              <Icon size={24} name="heart" color={Theme.color.PRIMARY_COLOR} />
             </View>
           </View>
           <View style={[styles.rowFlex, styles.changeLayout]}>

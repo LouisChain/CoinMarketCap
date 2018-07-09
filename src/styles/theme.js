@@ -1,4 +1,4 @@
-export default {
+const color = {
   PRIMARY_COLOR: "#E9B443",
   SECOND_PRIMARY_COLOR: "#a17a25",
   BACKGROUND_COLOR: "#12151B",
@@ -15,8 +15,7 @@ export default {
   TABBAR_BADGE_COLOR: "#dd463b",
   TABBAR_BADGE_LABEL_COLOR: "#FFF",
 
-  FONT_NORMAL: "OpenSans-Regular",
-  FONT_BOLD: "OpenSans-Bold",
-
   BORDER_RADIUS: 5
 };
+
+export default { color };
