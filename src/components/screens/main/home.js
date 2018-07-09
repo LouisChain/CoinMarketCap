@@ -7,7 +7,7 @@ import {
   SearchBox
 } from "../../Generic/app-generic";
 import styles from "./styles-main";
-import { COIN_DETAIL } from "../../router";
+import { COIN_DETAIL } from "../../../constants/screen";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Theme from "../../../styles/theme";
 import StringUtils from "../../../utils/string-util";

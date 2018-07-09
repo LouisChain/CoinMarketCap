@@ -6,18 +6,14 @@ import {
   createStackNavigator
 } from "react-navigation";
 import Icon from "react-native-vector-icons/FontAwesome";
-import Theme from "../styles/theme";
-import HomeScreen from "./screens/main/home";
-import FavouriteScreen from "./screens/main/favourite";
-import GlobalScreen from "./screens/main/global";
-import NewsScreen from "./screens/main/news";
-import CoinDetailScreen from "./screens/coin-detail/coin-detail";
+import Theme from "./styles/theme";
+import HomeScreen from "./components/screens/main/home";
+import FavouriteScreen from "./components/screens/main/favourite";
+import GlobalScreen from "./components/screens/main/global";
+import NewsScreen from "./components/screens/main/news";
+import CoinDetailScreen from "./components/screens/coin-detail/coin-detail";
+import * as Screen from "./constants/screen";
 
-export const HOME = "Home";
-export const FAVOURITE = "Favourite";
-export const GLOBAL_ = "Global";
-export const NEWS = "News";
-export const COIN_DETAIL = "CoinDetail";
 const TabBarScreen = createTabNavigator(
   {
     Home: {
@@ -38,14 +34,14 @@ const TabBarScreen = createTabNavigator(
       tabBarIcon: ({ focused, tintColor }) => {
         const { routeName } = navigation.state;
         let iconName;
-        if (routeName === HOME) {
+        if (routeName === Screen.HOME) {
           //iconName = `ios-information-circle${focused ? "" : "-outline"}`;
           iconName = "home";
-        } else if (routeName === FAVOURITE) {
+        } else if (routeName === Screen.FAVOURITE) {
           iconName = "heart";
-        } else if (routeName === GLOBAL_) {
+        } else if (routeName === Screen.GLOBAL_) {
           iconName = "globe";
-        } else if (routeName === NEWS) {
+        } else if (routeName === Screen.NEWS) {
           iconName = "snowflake-o";
         }
         return <Icon name={iconName} size={24} color={tintColor} />;
