@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, ActivityIndicator, TextInput } from "react-native";
+import { View, Text, ActivityIndicator, TextInput, Button } from "react-native";
 import Theme from "../../styles/theme";
 import styles from "./styles";
 
@@ -13,11 +13,20 @@ export class AppActivityIndicatorFullScreen extends Component {
   render() {
     return (
       <ActivityIndicator
-        style={styles.indicator}
+        style={styles.centerScreen}
         size="large"
         color={Theme.color.PRIMARY_COLOR}
       />
     );
+  }
+}
+
+export class AppErrorFetchData extends Component {
+  render() {
+    <View style={style.centerScreen}>
+      <Text style={styles.text}>Opps! Something went wrong</Text>
+      <Button value="Reload" onPress = {this.props.onReload}/>
+    </View>;
   }
 }
 

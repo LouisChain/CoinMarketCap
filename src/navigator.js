@@ -5,16 +5,21 @@ import {
   TabBarBottom,
   createStackNavigator
 } from "react-navigation";
+import {
+  reduxifyNavigator,
+  createReactNavigationReduxMiddleware
+} from "react-navigation-redux-helpers";
+import { connect } from "react-redux";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Theme from "./styles/theme";
-import HomeScreen from "./components/screens/main/home";
+import HomeScreen from "./containers/home-container";
 import FavouriteScreen from "./components/screens/main/favourite";
 import GlobalScreen from "./components/screens/main/global";
 import NewsScreen from "./components/screens/main/news";
 import CoinDetailScreen from "./components/screens/coin-detail/coin-detail";
 import * as Screen from "./constants/screen";
 
-const TabBarScreen = createTabNavigator(
+const TabbarStackNavigator = createTabNavigator(
   {
     Home: {
       screen: HomeScreen
@@ -61,10 +66,10 @@ const TabBarScreen = createTabNavigator(
   }
 );
 
-const Router = createStackNavigator(
+const RootStackNavigator = createStackNavigator(
   {
-    TabBar: {
-      screen: TabBarScreen
+    Tabbar: {
+      screen: TabbarStackNavigator
     },
     CoinDetail: {
       screen: CoinDetailScreen
@@ -84,6 +89,19 @@ const Router = createStackNavigator(
   }
 );
 
-export default Router;
+const navMiddleWare = createReactNavigationReduxMiddleware(
+  "root",
+  state => state.nav
+);
+
+const AppWithNavigationState = reduxifyNavigator(RootStackNavigator, "root");
+
+const mapStateToProps = state => ({
+  state: state.nav
+});
+
+const AppNavigator = connect(mapStateToProps)(AppWithNavigationState);
+
+export { RootStackNavigator, AppNavigator, navMiddleWare };
 // todo:
 // add last update time to home

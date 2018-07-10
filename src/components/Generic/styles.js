@@ -2,9 +2,8 @@ import { StyleSheet } from "react-native";
 import Theme from "../../styles/theme";
 
 export default StyleSheet.create({
-  indicator: {
+  centerScreen: {
     flex: 1,
-    alignSelf: "stretch",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: Theme.color.BACKGROUND_COLOR
@@ -28,5 +27,9 @@ export default StyleSheet.create({
       shadowColor: "#c1c1c1"
     },
     elevation: 3
+  },
+  text: {
+    color: Theme.color.PRIMARY_TEXT_COLOR,
+    fontSize: 12
   }
 });

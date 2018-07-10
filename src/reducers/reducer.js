@@ -1,16 +1,10 @@
-const defaultState = {
-  id: 0,
-  name: "root user"
-};
+import { combineReducers } from "redux";
+import cryptoReducer from "./crypto-reducer";
+import nav from "./nav-reducer";
 
-const reducer = (state = defaultState, action) => {
-  // Use combineReducers if there more than one reducers in your app
-  switch (action.type) {
-    case "LOGIN":
-      return { id: 0, name: "root user" };
-    default:
-      return state;
-  }
-};
+const reducer = combineReducers({
+  cryptoReducer,
+  nav
+});
 
 export default reducer;

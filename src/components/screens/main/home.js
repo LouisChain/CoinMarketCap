@@ -4,7 +4,8 @@ import { getTickers } from "../../../services/cloud/api";
 import {
   AppActivityIndicatorFullScreen,
   ListItemSeperator,
-  SearchBox
+  SearchBox,
+  AppErrorFetchData
 } from "../../Generic/app-generic";
 import styles from "./styles-main";
 import { COIN_DETAIL } from "../../../constants/screen";
@@ -15,29 +16,29 @@ import StringUtils from "../../../utils/string-util";
 export default class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isLoading: true,
-      dataSource: null
-    };
+    // this.state = {
+    //   isLoading: true,
+    //   dataSource: null
+    // };
   }
 
-  componentDidMount() {
-    return getTickers()
-      .then(response => {
-        // var arr = [];
-        // for (var prop in response.data.data) {
-        //   arr.push(response.data.data[prop]);
-        // }
-        this.setState({
-          isLoading: false,
-          dataSource: response.data.data
-        });
-        loadedTickers = this.state.dataSource;
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }
+  // componentDidMount() {
+  //   return getTickers()
+  //     .then(response => {
+  //       // var arr = [];
+  //       // for (var prop in response.data.data) {
+  //       //   arr.push(response.data.data[prop]);
+  //       // }
+  //       this.setState({
+  //         isLoading: false,
+  //         dataSource: response.data.data
+  //       });
+  //       loadedTickers = this.state.dataSource;
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //     });
+  // }
 
   componentWillUnmount() {
     loadedTickers = null;
@@ -117,32 +118,47 @@ export default class Home extends Component {
     }
   };
 
-  render() {
-    if (this.state.isLoading) {
+  renderLoading = () => {
+    if (this.props.isLoading) {
       return <AppActivityIndicatorFullScreen />;
     }
-    return (
-      <View style={styles.container}>
-        {/* <SearchBox handleSearBoxChange={this.handleSearBoxChange} /> */}
+    return null;
+  };
+
+  renderError = () => {
+    if (this.props.isError) {
+      return <AppErrorFetchData />;
+    }
+    return null;
+  };
+
+  renderList = () => {
+    if (!this.props.isLoading && !this.props.isError) {
+      return (
         <FlatList
-          data={this.state.dataSource}
+          data={this.props.cryptos}
           keyExtractor={item => item.id.toString()}
           renderItem={this.renderItem}
           ItemSeparatorComponent={ListItemSeperator}
           getItemLayout={this.getItemLayout}
         />
+      );
+    }
+    return null;
+  };
+
+  render() {
+    return (
+      <View style={styles.container}>
+        {this.renderLoading()}
+        {this.renderError()}
+        {/* <SearchBox handleSearBoxChange={this.handleSearBoxChange} /> */}
+        {this.renderList()}
       </View>
     );
   }
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     paddingTop: Constants.statusBarHeight,
-//     backgroundColor: '#ecf0f1',
-//   },
-// });
 let loadedTickers = {};
 const listItemHeight = 132;
 const baseImageLink =
