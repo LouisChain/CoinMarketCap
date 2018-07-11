@@ -16,7 +16,7 @@ import HomeScreen from "./containers/home-container";
 import FavouriteScreen from "./components/screens/main/favourite";
 import GlobalScreen from "./components/screens/main/global";
 import NewsScreen from "./components/screens/main/news";
-import CoinDetailScreen from "./components/screens/coin-detail/coin-detail";
+import CoinDetailScreen from "./containers/coin-detail-container";
 import * as Screen from "./constants/screen";
 
 const TabbarStackNavigator = createTabNavigator(
@@ -69,7 +69,10 @@ const TabbarStackNavigator = createTabNavigator(
 const RootStackNavigator = createStackNavigator(
   {
     Tabbar: {
-      screen: TabbarStackNavigator
+      screen: TabbarStackNavigator,
+      navigationOptions: {
+        title: "All Crypto"
+      }
     },
     CoinDetail: {
       screen: CoinDetailScreen
@@ -105,3 +108,6 @@ const AppNavigator = connect(mapStateToProps)(AppWithNavigationState);
 export { RootStackNavigator, AppNavigator, navMiddleWare };
 // todo:
 // add last update time to home
+// redux-logger
+// redux-persist
+

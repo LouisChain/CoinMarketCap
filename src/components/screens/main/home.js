@@ -51,7 +51,7 @@ export default class Home extends Component {
   getItemLayout = (data, index) => {
     return {
       length: listItemHeight,
-      offset: index * listItemHeight,
+      offset: index * (listItemHeight + 0.3),
       index
     };
   };
@@ -160,7 +160,7 @@ export default class Home extends Component {
 }
 
 let loadedTickers = {};
-const listItemHeight = 132;
+const listItemHeight = 150;
 const baseImageLink =
   "https://s2.coinmarketcap.com/static/img/coins/64x64/{id}.png";
 

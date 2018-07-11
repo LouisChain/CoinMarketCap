@@ -10,7 +10,7 @@ export default StyleSheet.create({
     padding: 16,
     flexDirection: "row",
     alignSelf: "baseline",
-    backgroundColor: Theme.color.BACKGROUND_COLOR
+    backgroundColor: Theme.color.BACKGROUND_COLOR,
   },
   homeListItemImageContainer: {
     width: 48,
