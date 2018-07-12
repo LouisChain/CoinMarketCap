@@ -106,9 +106,4 @@ const mapStateToProps = state => ({
 const AppNavigator = connect(mapStateToProps)(AppWithNavigationState);
 
 export { RootStackNavigator, AppNavigator, navMiddleWare };
-// todo:
-// add last update time to home
-// redux-logger
-// redux-persist
-// react-redux-realm
 
