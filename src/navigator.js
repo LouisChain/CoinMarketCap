@@ -13,9 +13,9 @@ import { connect } from "react-redux";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Theme from "./styles/theme";
 import HomeScreen from "./containers/home-container";
-import FavouriteScreen from "./components/screens/main/favourite";
-import GlobalScreen from "./components/screens/main/global";
-import NewsScreen from "./components/screens/main/news";
+import FavouriteScreen from "./containers/favourite-container";
+import GlobalScreen from "./containers/global-container";
+import NewsScreen from "./containers/news-container";
 import CoinDetailScreen from "./containers/coin-detail-container";
 import * as Screen from "./constants/screen";
 
@@ -110,4 +110,5 @@ export { RootStackNavigator, AppNavigator, navMiddleWare };
 // add last update time to home
 // redux-logger
 // redux-persist
+// react-redux-realm
 

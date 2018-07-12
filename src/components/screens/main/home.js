@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Text, View, Image, FlatList, TouchableOpacity } from "react-native";
-import { getTickers } from "../../../services/cloud/api";
 import {
   AppActivityIndicatorFullScreen,
   ListItemSeperator,

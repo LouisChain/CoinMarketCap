@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import CoinDetailView from "../components/screens/coin-detail/coin-detail";
-import { fetchChartData } from "../actions/get-coin-detail-action";
+import { fetchChartData } from "../actions/coin-detail-action";
 
 class CoinDetailContainer extends Component {
   static navigationOptions = ({ navigation }) => {

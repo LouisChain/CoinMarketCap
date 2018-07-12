@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import HomeView from "../components/screens/main/home";
-import { fetchAllCrypto } from "../actions/get-coins-action";
+import { fetchAllCrypto } from "../actions/crypto-action";
 
 class HomeContainer extends Component {
   constructor(props) {

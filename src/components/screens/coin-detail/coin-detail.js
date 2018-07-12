@@ -5,30 +5,12 @@ import TimeUtil from "../../../utils/time-util";
 import StringUtil from "../../../utils/string-util";
 import { AreaChart, YAxis, XAxis } from "react-native-svg-charts";
 import * as shape from "d3-shape";
-import { getHistoricalData } from "../../../services/cloud/api";
 import SegmentControl from "../../Segment/segment-index";
 import { AppActivityIndicatorFullScreen } from "../../Generic/app-generic";
 
 export default class CoinDetail extends React.PureComponent {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: "abc"
-      // navigation.getParam("name", "Detail")
-      // headerRight: (
-      //   <Button
-      //     onPress={() => navigation.navigate("MODAL")}
-      //     title="Info"
-      //     color="#fff"
-      //   />
-      // ),
-    };
-  };
-
   constructor(props) {
     super(props);
-    // this.props.navigation.setOptions({
-    //   title: 'Home'
-    // });
   }
 
   render() {
