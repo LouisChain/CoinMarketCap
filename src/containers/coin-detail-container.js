@@ -22,6 +22,13 @@ class CoinDetailContainer extends Component {
     this.handleSelectionChart(this.props.selectedIndex, symbol);
   }
 
+  onBackPress = () => {
+    const { dispatch, nav } = this.props;
+    if (shouldCloseApp(nav)) return false;
+    dispatch({ type: "Back" });
+    return true;
+  };
+
   render() {
     return (
       <CoinDetailView
