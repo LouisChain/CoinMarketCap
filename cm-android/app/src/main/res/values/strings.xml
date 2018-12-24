@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CoinMarketCap</string>
+
+    <string name="tickers">Tickers</string>
+    <string name="global">Global</string>
+    <string name="profile">Profile</string>
+</resources>
